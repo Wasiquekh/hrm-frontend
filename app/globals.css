@@ -162,57 +162,130 @@ body:hover::-webkit-scrollbar-thumb,
   outline: none!important;
 }
 
-/* ------------------------------------- */
-/* DATE PICKER CSS */
-/* Header section (month/year title & arrows) */
+/* ---------------- DATE PICKER COMPACT UI ---------------- */
+
+.custom-datepicker .react-datepicker {
+  border: 1px solid var(--primary-200);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 260px;
+  font-size: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Header */
 .custom-datepicker .react-datepicker__header {
-  background-color: var(--primary-600) !important; /* Dark maroon */
-  color: white !important;
-  border-bottom: none !important;
+  background-color: var(--primary-600);
+  border-bottom: none;
+  padding-top: 10px;
+  padding-bottom: 8px;
 }
 
-/* Month & year text */
+/* Month title */
 .custom-datepicker .react-datepicker__current-month {
-  color: white !important;
-  font-weight: bold;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.custom-datepicker .react-datepicker__navigation {
-  filter: brightness(0) invert(1); /* Makes left/right arrows white */
+/* Year text */
+.custom-datepicker .react-datepicker__year-read-view--selected-year {
+  color: white;
 }
 
-/* Weekday names (Sun, Mon, Tue, etc.) */
+/* Navigation arrows */
+.custom-datepicker .react-datepicker__navigation-icon::before {
+  border-color: white;
+}
+
+/* Weekdays */
 .custom-datepicker .react-datepicker__day-name {
-  background-color:  var(--primary-600) !important;
-  color: white !important;
+  background: var(--primary-500);
+  color: white;
+  width: 32px;
+  height: 28px;
+  line-height: 28px;
+  margin: 2px;
+  border-radius: 4px;
+  font-size: 12px;
 }
 
-/* Current date */
-.custom-datepicker .react-datepicker__day--today {
-  background-color:  var(--primary-100) !important; /* Light pink */
-  color:  var(--primary-600) !important;
-  font-weight: bold;
+/* Days */
+.custom-datepicker .react-datepicker__day {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  margin: 2px;
+  border-radius: 5px;
+  color: var(--primary-900);
+  transition: all 0.15s ease;
 }
 
-/* Hover effect */
+/* Hover */
 .custom-datepicker .react-datepicker__day:hover {
-  background-color:  var(--primary-100) !important; /* Medium pink */
-  color:  var(--primary-600) !important;
+  background: var(--primary-100);
+  color: var(--primary-700);
 }
 
-/* Selected date */
+/* Selected day */
 .custom-datepicker .react-datepicker__day--selected {
-  background-color:  var(--primary-600) !important; /* Dark maroon */
+  background: var(--primary-600) !important;
   color: white !important;
+  font-weight: 600;
 }
 
-/* Datepicker dropdown background */
-.custom-datepicker {
-  background-color:  var(--primary-100) !important; /* Light pink */
-  border: 1px solid  var(--primary-600) !important;
-  border-radius: 4px !important;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+/* Today */
+.custom-datepicker .react-datepicker__day--today {
+  background: var(--primary-200);
+  font-weight: 600;
 }
+
+/* Disabled */
+.custom-datepicker .react-datepicker__day--disabled {
+  color: #ccc;
+}
+
+/* ---------------- YEAR DROPDOWN ---------------- */
+
+.custom-datepicker .react-datepicker__year-dropdown {
+  background: var(--primary-600);
+  border-radius: 6px;
+  border: none;
+  width: 90px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* Year option */
+.custom-datepicker .react-datepicker__year-option {
+  color: white;
+  padding: 5px 8px;
+  font-size: 13px;
+}
+
+/* Hover year */
+.custom-datepicker .react-datepicker__year-option:hover {
+  background: var(--primary-700);
+}
+
+/* Selected year */
+.custom-datepicker .react-datepicker__year-option--selected {
+  background: var(--primary-800);
+  font-weight: 600;
+}
+
+/* Scrollbar */
+.custom-datepicker .react-datepicker__year-dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-datepicker .react-datepicker__year-dropdown::-webkit-scrollbar-thumb {
+  background: var(--primary-300);
+  border-radius: 10px;
+}
+
+/* ---------------- END DATE PICKER ---------------- */
+
 input#swal2-input:hover {
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 }

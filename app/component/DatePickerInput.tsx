@@ -8,7 +8,6 @@ type DatePickerInputProps = {
   name: string;
   value: Date | null;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
-
   placeholderText?: string;
   dateFormat?: string;
 };
@@ -20,6 +19,8 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
   placeholderText = "yyyy-mm-dd",
   dateFormat = "yyyy-MM-dd",
 }) => {
+  const today = new Date();
+
   return (
     <DatePicker
       selected={value}
@@ -27,17 +28,33 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       name={name}
       dateFormat={dateFormat}
       placeholderText={placeholderText}
-      className="hover:shadow-hoverInputShadow focus-border-primary 
-        !w-full border border-[#DFEAF2] rounded-[4px] text-sm leading-4 
-        font-medium placeholder-[#717171] py-4 px-4 bg-white shadow-sm"
+
+      /* Year dropdown */
+      showYearDropdown
+      scrollableYearDropdown
+      yearDropdownItemNumber={15}  // visible years
+
+      /* Disable future dates (DOB use case) */
+      maxDate={today}
+
+      /* Custom popup styling */
       popperClassName="custom-datepicker"
+
+      className="hover:shadow-hoverInputShadow focus-border-primary 
+      !w-full border border-[#DFEAF2] rounded-[4px] text-sm leading-4 
+      font-medium placeholder-[#717171] py-4 px-4 bg-white shadow-sm"
+
       dayClassName={(date) => {
-        const today = new Date().toDateString();
+        const todayString = new Date().toDateString();
         const selectedDate = value ? new Date(value).toDateString() : null;
 
-        if (today === date.toDateString()) return "bg-[#FFF0F1] text-[#A3000E]";
-        if (selectedDate === date.toDateString()) return "bg-[#A3000E] text-white";
-        return "hover:bg-[#FFCCD0] hover:text-[#A3000E]";
+        if (todayString === date.toDateString())
+          return "bg-[var(--primary-200)] text-[var(--primary-900)]";
+
+        if (selectedDate === date.toDateString())
+          return "bg-[var(--primary-600)] text-white";
+
+        return "hover:bg-[var(--primary-100)] hover:text-[var(--primary-700)]";
       }}
     />
   );

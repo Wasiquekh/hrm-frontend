@@ -100,6 +100,26 @@ class AxiosProvider {
       throw error;
     }
   }
+  // File upload with PUT (for updates)
+async updateUpload(url: string, formData: FormData) {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const response = await axios.put(`${API_URL}${url}`, formData, {
+      headers: { 
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      localStorage.clear();
+      window.location.href = '/';
+    }
+    throw error;
+  }
+}
+
 }
 
 export default AxiosProvider;

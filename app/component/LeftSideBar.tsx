@@ -10,7 +10,7 @@ import {
 } from "react-icons/tb";
 import { HiWrenchScrewdriver } from "react-icons/hi2";
 import {  FaMoneyCheckDollar } from "react-icons/fa6";
-import { FaBuilding, FaCalendarCheck, FaIdBadge, FaUserEdit } from "react-icons/fa";
+import { FaBuilding, FaCalendarCheck, FaIdBadge, FaUserEdit, FaUserTie } from "react-icons/fa";
 import { BsCreditCard2Back } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
 import { RiHistoryLine } from "react-icons/ri";
@@ -100,6 +100,20 @@ const LeftSideBar: React.FC = () => {
             <p>Designation</p>
           </div>
         </Link>
+                         <Link href="/employee">  
+
+          <div
+            className={`mb-4 flex gap-4 items-center group px-3 py-2 rounded-[4px] relative cursor-pointer text-base leading-normal font-medium text-firstBlack hover:bg-sideBarHoverbg active:bg-sideBarHoverbgPressed hover:text-primary-600 ${
+              pathname === "/employee"
+                ? "bg-primary-600 text-white hover:!bg-primary-600 hover:!text-white"
+                : ""
+            }`}
+          >
+            <FaUserTie      className="w-6 h-6" />
+            <p>Employees</p>
+          </div>
+        </Link>
+
 
         <Link href="/transaction">
           <div
