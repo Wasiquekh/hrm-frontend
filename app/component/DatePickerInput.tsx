@@ -19,8 +19,6 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
   placeholderText = "yyyy-mm-dd",
   dateFormat = "yyyy-MM-dd",
 }) => {
-  const today = new Date();
-
   return (
     <DatePicker
       selected={value}
@@ -34,8 +32,8 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       scrollableYearDropdown
       yearDropdownItemNumber={15}  // visible years
 
-      /* Disable future dates (DOB use case) */
-      maxDate={today}
+      /* No date restrictions - all dates are selectable */
+      // Removed maxDate={today} to allow all dates
 
       /* Custom popup styling */
       popperClassName="custom-datepicker"

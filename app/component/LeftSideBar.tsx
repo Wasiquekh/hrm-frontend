@@ -113,6 +113,19 @@ const LeftSideBar: React.FC = () => {
             <p>Employees</p>
           </div>
         </Link>
+                                 <Link href="/holidays">  
+
+          <div
+            className={`mb-4 flex gap-4 items-center group px-3 py-2 rounded-[4px] relative cursor-pointer text-base leading-normal font-medium text-firstBlack hover:bg-sideBarHoverbg active:bg-sideBarHoverbgPressed hover:text-primary-600 ${
+              pathname === "/holidays"
+                ? "bg-primary-600 text-white hover:!bg-primary-600 hover:!text-white"
+                : ""
+            }`}
+          >
+            <FaUserTie      className="w-6 h-6" />
+            <p>Holidays</p>
+          </div>
+        </Link>
 
 
         <Link href="/transaction">

@@ -46,6 +46,26 @@ const bloodGroupOptions = [
   { value: "AB-", label: "AB-" },
 ];
 
+// Indian States Options - ADD THIS
+const stateOptions = [
+  { value: "maharashtra", label: "Maharashtra" },
+  { value: "gujarat", label: "Gujarat" },
+  { value: "karnataka", label: "Karnataka" },
+  { value: "delhi", label: "Delhi" },
+  { value: "tamil_nadu", label: "Tamil Nadu" },
+  { value: "uttar_pradesh", label: "Uttar Pradesh" },
+  { value: "rajasthan", label: "Rajasthan" },
+  { value: "west_bengal", label: "West Bengal" },
+  { value: "madhya_pradesh", label: "Madhya Pradesh" },
+  { value: "punjab", label: "Punjab" },
+  { value: "haryana", label: "Haryana" },
+  { value: "kerala", label: "Kerala" },
+  { value: "andhra_pradesh", label: "Andhra Pradesh" },
+  { value: "telangana", label: "Telangana" },
+  { value: "bihar", label: "Bihar" },
+  { value: "odisha", label: "Odisha" },
+];
+
 // File upload fields - EXACT NAMES FROM BACKEND
 const documentFields = [
   { name: "employee_photo", label: "Employee Photo", required: true },
@@ -86,7 +106,7 @@ export default function EmployeeManagement() {
         alternate_mobile: Yup.string().matches(/^[0-9]{10}$/, "10 digits required").nullable(),
         address: Yup.string().required("Address is required"),
         city: Yup.string().required("City is required"),
-        state: Yup.string().required("State is required"),
+        state: Yup.string().required("State is required"), // State required for add
         blood_group: Yup.string().nullable(),
         qualification: Yup.string().nullable(),
         department_id: Yup.string().nullable(),
@@ -128,7 +148,7 @@ export default function EmployeeManagement() {
        alternate_mobile: Yup.string().matches(/^[0-9]{10}$/, "10 digits required").nullable(),
         address: Yup.string().required("Address is required"),
         city: Yup.string().required("City is required"),
-        state: Yup.string().required("State is required"),
+        state: Yup.string().required("State is required"), // State required for edit
         blood_group: Yup.string().nullable(),
         qualification: Yup.string().nullable(),
         department_id: Yup.string().nullable(),
@@ -616,7 +636,7 @@ const handleSubmit = async (values: any, { setSubmitting, resetForm }) => {
               alternate_mobile: selectedEmployee?.alternate_mobile || "",
               address: selectedEmployee?.address || "",
               city: selectedEmployee?.city || "",
-              state: selectedEmployee?.state || "",
+              state: selectedEmployee?.state || "", // This will now work with dropdown
               blood_group: selectedEmployee?.blood_group || "",
               qualification: selectedEmployee?.qualification || "",
               department_id: selectedEmployee?.department_id || "",
@@ -781,13 +801,15 @@ const handleSubmit = async (values: any, { setSubmitting, resetForm }) => {
                     <ErrorMessage name="city" component="div" className="text-red-500 text-xs mt-1" />
                   </div>
 
+                  {/* State Dropdown - REPLACED the text input with dropdown */}
                   <div>
                     <p className="text-[#0A0A0A] font-medium text-sm mb-2">State <span className="text-red-500">*</span></p>
-                    <Field
-                      type="text"
+                    <SelectInput
                       name="state"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"
-                      placeholder="Enter state"
+                      value={values.state}
+                      options={stateOptions}
+                      setFieldValue={setFieldValue}
+                      placeholder="Select state"
                     />
                     <ErrorMessage name="state" component="div" className="text-red-500 text-xs mt-1" />
                   </div>
