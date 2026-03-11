@@ -17,48 +17,48 @@ import AxiosProvider from "../../provider/AxiosProvider";
 
 const axiosProvider = new AxiosProvider();
 
-const departmentValidationSchema = Yup.object({
+const designationValidationSchema = Yup.object({
   name: Yup.string()
-    .required("Department name is required")
+    .required("Designation name is required")
     .min(2, "Name must be at least 2 characters")
     .max(100, "Name must not exceed 100 characters"),
 });
 
-export default function DepartmentManagement() {
-  const [departments, setDepartments] = useState([]);
+export default function DesignationManagement() {
+  const [designations, setDesignations] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedDesignation, setSelectedDesignation] = useState(null);
   const [flyoutMode, setFlyoutMode] = useState("add");
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchDepartments = async () => {
+  const fetchDesignations = async () => {
     setIsLoading(true);
     try {
-      const response = await axiosProvider.get(`/departments?page=${page}`);
-      setDepartments(response?.data || []);
+      const response = await axiosProvider.get(`/designations?page=${page}`);
+      setDesignations(response?.data || []);
       setTotalPages(response?.pagination?.totalPages || 1);
     } catch (error) {
-      toast.error("Failed to load departments");
+      toast.error("Failed to load designations");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Sirf page change par fetch hoga
+  // Fetch on page change
   useEffect(() => {
-    fetchDepartments();
+    fetchDesignations();
   }, [page]);
 
   const handleAdd = () => {
-    setSelectedDepartment(null);
+    setSelectedDesignation(null);
     setFlyoutMode("add");
     setIsFlyoutOpen(true);
   };
 
-  const handleEdit = (department: any) => {
-    setSelectedDepartment(department);
+  const handleEdit = (designation: any) => {
+    setSelectedDesignation(designation);
     setFlyoutMode("edit");
     setIsFlyoutOpen(true);
   };
@@ -66,7 +66,7 @@ export default function DepartmentManagement() {
   const handleDelete = async (id: any) => {
     const result = await Swal.fire({
       title: "Are you sure?",
-      text: "Do you really want to delete this department?",
+      text: "Do you really want to delete this designation?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes",
@@ -77,30 +77,30 @@ export default function DepartmentManagement() {
 
     if (result.isConfirmed) {
       try {
-        await axiosProvider.delete(`/departments/${id}`);
-        toast.success("Department deleted successfully");
-        await fetchDepartments();
+        await axiosProvider.delete(`/designations/${id}`);
+        toast.success("Designation deleted successfully");
+        await fetchDesignations();
       } catch (error) {
-        toast.error(error?.response?.data?.message || "Failed to delete department");
+        toast.error(error?.response?.data?.message || "Failed to delete designation");
       }
     }
   };
 
-  const handleSubmit = async (values: any, { setSubmitting,resetForm   }) => {
+  const handleSubmit = async (values: any, { setSubmitting, resetForm  }) => {
     try {
       if (flyoutMode === "add") {
-        await axiosProvider.post("/departments", { name: values.name });
-        toast.success("Department added successfully!");
+        await axiosProvider.post("/designations", { name: values.name });
+        toast.success("Designation added successfully!");
         resetForm();
       } else {
-        await axiosProvider.put(`/departments/${values.id}`, { name: values.name });
-        toast.success("Department updated successfully!");
+        await axiosProvider.put(`/designations/${values.id}`, { name: values.name });
+        toast.success("Designation updated successfully!");
       }
       
       setIsFlyoutOpen(false);
-      await fetchDepartments();
+      await fetchDesignations();
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to save department");
+      toast.error(error?.response?.data?.message || "Failed to save designation");
     } finally {
       setSubmitting(false);
     }
@@ -108,10 +108,10 @@ export default function DepartmentManagement() {
 
   const resetFlyout = () => {
     setIsFlyoutOpen(false);
-    setSelectedDepartment(null);
+    setSelectedDesignation(null);
   };
 
-  if (isLoading && departments.length === 0) {
+  if (isLoading && designations.length === 0) {
     return (
       <div className="h-screen flex flex-col gap-5 justify-center items-center">
         <Image
@@ -150,7 +150,7 @@ export default function DepartmentManagement() {
               >
                 <FaPlus className="h-[20px] w-[20px] text-white group-hover:text-white" />
                 <p className="text-white text-base leading-normal group-hover:text-white">
-                  Add Department
+                  Add Designation
                 </p>
               </button>
             </div>
@@ -161,7 +161,7 @@ export default function DepartmentManagement() {
                   <tr className="border border-tableBorder">
                     <th scope="col" className="px-4 p-3 border border-tableBorder">
                       <div className="font-semibold text-firstBlack text-base leading-normal">
-                        Department Name
+                        Designation Name
                       </div>
                     </th>
                     <th scope="col" className="px-4 py-1 border border-tableBorder">
@@ -172,14 +172,14 @@ export default function DepartmentManagement() {
                   </tr>
                 </thead>
                 <tbody>
-                  {departments.length === 0 ? (
+                  {designations.length === 0 ? (
                     <tr>
                       <td colSpan={2} className="text-center py-4 border border-tableBorder">
-                        <p className="text-[#666666] text-base">No departments found</p>
+                        <p className="text-[#666666] text-base">No designations found</p>
                       </td>
                     </tr>
                   ) : (
-                    departments.map((item, index) => (
+                    designations.map((item, index) => (
                       <tr className="border border-tableBorder bg-white hover:bg-primary-100" key={item.id || index}>
                         <td className="px-4 md:p-3 py-2 border border-tableBorder">
                           <p className="text-[#232323] text-base leading-normal">
@@ -191,7 +191,7 @@ export default function DepartmentManagement() {
                             <button
                               onClick={() => handleEdit(item)}
                               className="py-[4px] px-3 bg-blue-500 hover:bg-blue-600 rounded-xl flex gap-1 items-center text-xs md:text-sm"
-                              title="Edit Department"
+                              title="Edit Designation"
                             >
                               <MdModeEdit className="text-white w-4 h-4" />
                               <p className="text-white hidden md:block text-xs md:text-sm">
@@ -202,7 +202,7 @@ export default function DepartmentManagement() {
                             <button
                               onClick={() => handleDelete(item.id)}
                               className="py-[4px] px-3 bg-black hover:bg-red-600 rounded-xl flex gap-1 items-center text-xs md:text-sm"
-                              title="Delete Department"
+                              title="Delete Designation"
                             >
                               <RiDeleteBin6Line className="text-white w-4 h-4" />
                               <p className="text-white hidden md:block text-xs md:text-sm">
@@ -219,7 +219,7 @@ export default function DepartmentManagement() {
             </div>
           </div>
 
-          {departments.length > 0 && (
+          {designations.length > 0 && (
             <div className="flex justify-center items-center my-10 relative">
               <button
                 onClick={() => setPage(page - 1)}
@@ -256,7 +256,7 @@ export default function DepartmentManagement() {
         <div className="w-full">
           <div className="flex justify-between mb-4">
             <p className="text-primary-600 text-[22px] md:text-[26px] font-bold">
-              {flyoutMode === "add" ? "Add Department" : "Edit Department"}
+              {flyoutMode === "add" ? "Add Designation" : "Edit Designation"}
             </p>
             <IoCloseOutline
               onClick={resetFlyout}
@@ -266,23 +266,24 @@ export default function DepartmentManagement() {
           <div className="w-full border-b border-[#E7E7E7] mb-4"></div>
 
           <Formik
+        
             initialValues={{
-              id: selectedDepartment?.id || "",
-              name: selectedDepartment?.name || "",
+              id: selectedDesignation?.id || "",
+              name: selectedDesignation?.name || "",
             }}
-            validationSchema={departmentValidationSchema}
+            validationSchema={designationValidationSchema}
             onSubmit={handleSubmit}
             enableReinitialize
           >
             {({ isSubmitting }) => (
               <Form>
                 <div className="mb-4">
-                  <p className="text-[#0A0A0A] font-medium text-base mb-2">Department Name</p>
+                  <p className="text-[#0A0A0A] font-medium text-base mb-2">Designation Name</p>
                   <Field
                     type="text"
                     name="name"
                     className="w-full px-4 py-3 rounded border border-[#E7E7E7] focus:outline-none focus:ring-1 focus:ring-primary-600"
-                    placeholder="Enter department name"
+                    placeholder="Enter designation name"
                   />
                   <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
@@ -295,7 +296,7 @@ export default function DepartmentManagement() {
                   >
                     {isSubmitting 
                       ? (flyoutMode === "add" ? "Adding..." : "Updating...") 
-                      : (flyoutMode === "add" ? "Add Department" : "Update Department")
+                      : (flyoutMode === "add" ? "Add Designation" : "Update Designation")
                     }
                   </button>
                 </div>
