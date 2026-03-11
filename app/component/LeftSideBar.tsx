@@ -10,7 +10,7 @@ import {
 } from "react-icons/tb";
 import { HiWrenchScrewdriver } from "react-icons/hi2";
 import {  FaMoneyCheckDollar } from "react-icons/fa6";
-import { FaBuilding, FaCalendarCheck, FaIdBadge, FaUserEdit, FaUserTie } from "react-icons/fa";
+import { FaBuilding, FaCalendarCheck, FaIdBadge, FaUmbrellaBeach, FaUserEdit, FaUserTie } from "react-icons/fa";
 import { BsCreditCard2Back } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
 import { RiHistoryLine } from "react-icons/ri";
@@ -122,7 +122,7 @@ const LeftSideBar: React.FC = () => {
                 : ""
             }`}
           >
-            <FaUserTie      className="w-6 h-6" />
+            <FaUmbrellaBeach       className="w-6 h-6" />
             <p>Holidays</p>
           </div>
         </Link>
