@@ -297,14 +297,15 @@ export default function HolidayManagement() {
           <Formik
             initialValues={{
               id: selectedHoliday?.id || "",
-              date: selectedHoliday?.date ? new Date(selectedHoliday.date) : null,
+              // FIX: Empty string "" for no date, NOT null!
+              date: selectedHoliday?.date ? new Date(selectedHoliday.date) : "",
               description: selectedHoliday?.description || "",
             }}
             validationSchema={holidayValidationSchema}
             onSubmit={handleSubmit}
             enableReinitialize
           >
-            {({ isSubmitting, setFieldValue, values }) => (
+            {({ isSubmitting, setFieldValue, setFieldTouched, values }) => (
               <Form>
                 <div className="mb-4">
                   <p className="text-[#0A0A0A] font-medium text-base mb-2">Date</p>
@@ -312,6 +313,7 @@ export default function HolidayManagement() {
                     name="date"
                     value={values.date}
                     setFieldValue={setFieldValue}
+                    setFieldTouched={setFieldTouched}
                     placeholderText="Select holiday date"
                     dateFormat="yyyy-MM-dd"
                   />
