@@ -8,8 +8,8 @@ import ErrorBoundary from "./ErrorBoundary";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Orizon",
-  description: "CRM",
+  title: "HRM",
+  description: "COMPRESS INDIA HRM",
 };
 
 type RootLayoutProps = {
@@ -20,9 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
+        <ErrorBoundary>{children}</ErrorBoundary>
         <ToastContainer
           position="top-right"
           autoClose={3000}

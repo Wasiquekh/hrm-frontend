@@ -576,7 +576,7 @@ export default function EmployeeManagement() {
                         key={item.id || index}
                       >
                         <td className="px-4 md:p-3 py-2 border border-tableBorder">
-                          <p className="text-[#232323] text-base leading-normal">
+                          <p className="text-[#232323] text-base leading-normal capitalize">
                             {item.first_name} {item.last_name}
                           </p>
                         </td>
